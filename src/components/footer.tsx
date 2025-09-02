@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Clapperboard } from "lucide-react";
+import { Clapperboard, Twitter, Facebook, Instagram } from "lucide-react";
 
 export default function Footer() {
   return (
@@ -9,17 +9,20 @@ export default function Footer() {
           <Clapperboard className="h-6 w-6 text-primary" />
           <span className="font-bold text-lg font-headline">CineSnap</span>
         </div>
-        <p className="text-sm text-muted-foreground">
+        <div className="flex gap-4">
+            <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">
+              <Twitter className="h-5 w-5" />
+            </Link>
+            <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">
+              <Facebook className="h-5 w-5" />
+            </Link>
+            <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">
+              <Instagram className="h-5 w-5" />
+            </Link>
+        </div>
+        <p className="text-sm text-muted-foreground text-center sm:text-right">
           © {new Date().getFullYear()} CineSnap. All rights reserved.
         </p>
-        <div className="flex gap-4">
-          <Link href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-            Privacy
-          </Link>
-          <Link href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-            Terms
-          </Link>
-        </div>
       </div>
     </footer>
   );
