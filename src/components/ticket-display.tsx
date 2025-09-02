@@ -2,32 +2,39 @@
 'use client';
 
 import { useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { Ticket, Clapperboard, Calendar, Clock, Armchair } from 'lucide-react';
 
-export default function TicketDisplay() {
+function TicketComponent() {
   const searchParams = useSearchParams();
+  const [movieTitle, setMovieTitle] = useState('');
+  const [screen, setScreen] = useState('');
+  const [time, setTime] = useState('');
   const [seats, setSeats] = useState<string[]>([]);
   const [total, setTotal] = useState<string | null>(null);
+  
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
+    const movieParam = searchParams.get('movie');
+    const screenParam = searchParams.get('screen');
+    const timeParam = searchParams.get('time');
     const seatsParam = searchParams.get('seats');
     const totalParam = searchParams.get('total');
-    if (seatsParam) {
+
+    if (movieParam && screenParam && timeParam && seatsParam && totalParam) {
+      setMovieTitle(movieParam);
+      setScreen(screenParam);
+      setTime(timeParam);
       setSeats(seatsParam.split(','));
-    }
-    if (totalParam) {
       setTotal(totalParam);
+      setIsLoaded(true);
     }
   }, [searchParams]);
-
-  // For the purpose of this mock, we'll use a static movie title.
-  // In a real app, you'd pass the movie ID and fetch its details.
-  const movieTitle = 'Cosmic Odyssey';
-
-  if (seats.length === 0) {
+  
+  if (!isLoaded) {
     return (
       <div className="container mx-auto px-4 py-12 text-center">
         <p>Loading ticket details...</p>
@@ -54,7 +61,7 @@ export default function TicketDisplay() {
             </div>
             <div className="space-y-1">
               <p className="text-sm text-muted-foreground flex items-center gap-2"><Clock className="w-4 h-4" /> Time</p>
-              <p className="font-semibold">7:30 PM</p>
+              <p className="font-semibold">{time}</p>
             </div>
              <div className="col-span-2 space-y-1">
               <p className="text-sm text-muted-foreground flex items-center gap-2"><Armchair className="w-4 h-4" /> Seats</p>
@@ -64,7 +71,7 @@ export default function TicketDisplay() {
             </div>
             <div className="space-y-1">
               <p className="text-sm text-muted-foreground">Screen</p>
-              <p className="font-semibold">3</p>
+              <p className="font-semibold">{screen}</p>
             </div>
              <div className="space-y-1">
               <p className="text-sm text-muted-foreground">Total Paid</p>
@@ -85,4 +92,12 @@ export default function TicketDisplay() {
       </div>
     </div>
   );
+}
+
+export default function TicketDisplay() {
+  return (
+    <Suspense fallback={<div>Loading tickets...</div>}>
+      <TicketComponent />
+    </Suspense>
+  )
 }

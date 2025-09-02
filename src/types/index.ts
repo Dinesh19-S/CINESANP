@@ -6,6 +6,11 @@ export interface Review {
   comment: string;
 }
 
+export interface Showtime {
+  screen: number;
+  time: string;
+}
+
 export interface Movie {
   id: string;
   title: string;
@@ -17,4 +22,5 @@ export interface Movie {
   reviews: Review[];
   duration: number; // in minutes
   releaseYear: number;
+  showtimes: Showtime[];
 }

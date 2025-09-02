@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import Image from 'next/image';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
@@ -30,9 +30,13 @@ const upiSchema = z.object({
 type PaymentFormValues = z.infer<typeof paymentSchema>;
 type UpiFormValues = z.infer<typeof upiSchema>;
 
-export default function PaymentForm() {
+function PaymentComponent() {
   const searchParams = useSearchParams();
   const router = useRouter();
+
+  const [movie, setMovie] = useState('');
+  const [screen, setScreen] = useState('');
+  const [time, setTime] = useState('');
   const [seats, setSeats] = useState<string[]>([]);
   const [total, setTotal] = useState<number>(0);
   const [status, setStatus] = useState('idle'); // idle, processing, success, failed
@@ -55,6 +59,9 @@ export default function PaymentForm() {
   });
 
   useEffect(() => {
+    setMovie(searchParams.get('movie') || '');
+    setScreen(searchParams.get('screen') || '');
+    setTime(searchParams.get('time') || '');
     const seatsParam = searchParams.get('seats');
     const totalParam = searchParams.get('total');
 
@@ -80,12 +87,19 @@ export default function PaymentForm() {
 
 
   if (status === 'success') {
+    const urlParams = new URLSearchParams();
+    urlParams.set('movie', movie);
+    urlParams.set('screen', screen);
+    urlParams.set('time', time);
+    urlParams.set('seats', seats.join(','));
+    urlParams.set('total', total.toFixed(2));
+    
     return (
       <div className="container mx-auto px-4 py-12 flex flex-col items-center text-center">
         <CheckCircle className="h-20 w-20 text-green-500 mb-6" />
         <h1 className="font-headline text-4xl font-bold mb-2">Payment Successful!</h1>
         <p className="text-muted-foreground text-lg mb-8">Your tickets have been booked.</p>
-        <Button onClick={() => router.push(`/tickets?seats=${seats.join(',')}&total=${total}`)}>
+        <Button onClick={() => router.push(`/tickets?${urlParams.toString()}`)}>
           <Ticket className="mr-2" />
           View My Tickets
         </Button>
@@ -247,6 +261,7 @@ export default function PaymentForm() {
           <Card className="sticky top-24">
             <CardHeader>
               <CardTitle>Booking Summary</CardTitle>
+              <CardDescription>{movie} - Screen {screen} at {time}</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="space-y-2">
@@ -267,4 +282,12 @@ export default function PaymentForm() {
       </div>
     </div>
   );
+}
+
+export default function PaymentForm() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <PaymentComponent />
+    </Suspense>
+  )
 }

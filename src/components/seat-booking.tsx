@@ -1,11 +1,14 @@
 'use client';
 
 import { useState, useMemo, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 import { Armchair } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+
+interface SeatBookingProps {
+  onConfirm: (selectedSeats: string[], totalPrice: number) => void;
+}
 
 const rows = 6;
 const cols = 10;
@@ -44,14 +47,15 @@ const getPriceForSeat = (row: number) => {
   return basePrice + row * priceIncrement;
 };
 
-export default function SeatBooking() {
+export default function SeatBooking({ onConfirm }: SeatBookingProps) {
   const [selectedSeats, setSelectedSeats] = useState<Set<string>>(new Set());
   const [bookedSeats, setBookedSeats] = useState<Set<string>>(new Set());
-  const router = useRouter();
-
+  
   useEffect(() => {
     // Generate booked seats on the client-side to avoid hydration mismatch
     setBookedSeats(generateBookedSeats());
+    // Reset selected seats when the component is shown (e.g., for a new showtime)
+    setSelectedSeats(new Set());
   }, []);
 
   const toggleSeat = (row: number, col: number) => {
@@ -78,16 +82,12 @@ export default function SeatBooking() {
   }, [selectedSeats]);
 
   const handleBooking = () => {
-    const params = new URLSearchParams();
-    params.set('seats', Array.from(selectedSeats).join(','));
-    params.set('total', totalPrice.toFixed(2));
-    router.push(`/payment?${params.toString()}`);
+    onConfirm(Array.from(selectedSeats), totalPrice);
   };
 
   const totalSelected = selectedSeats.size;
 
   return (
-    <Card className="bg-card/50">
       <CardContent className="p-6 flex flex-col items-center gap-6">
         <div className="w-full max-w-md">
            <div className="h-1 w-full bg-muted-foreground rounded-full mb-2 opacity-50" />
@@ -174,6 +174,5 @@ export default function SeatBooking() {
           </Button>
         </div>
       </CardContent>
-    </Card>
   );
 }
