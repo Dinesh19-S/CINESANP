@@ -10,7 +10,7 @@ export const allMovies: Movie[] = [
     rating: 4.7,
     genres: ['Action', 'Thriller'],
     duration: 175,
-    releaseYear: 2022,
+    releaseYear: 2025,
     reviews: [
       { id: 1, author: 'Anbu', avatarUrl: 'https://i.pravatar.cc/150?u=anbu', rating: 5, comment: 'An absolute blast from start to finish. A true comeback!' },
       { id: 2, author: 'Priya', avatarUrl: 'https://i.pravatar.cc/150?u=priya', rating: 4, comment: 'Great action sequences, but the plot can be a bit confusing.' },
@@ -31,7 +31,7 @@ export const allMovies: Movie[] = [
     rating: 4.5,
     genres: ['Action', 'Thriller', 'Crime'],
     duration: 164,
-    releaseYear: 2023,
+    releaseYear: 2025,
     reviews: [
       { id: 1, author: 'Karthik', avatarUrl: 'https://i.pravatar.cc/150?u=karthik', rating: 5, comment: 'Thalapathy Vijay at his absolute best. The hyena fight was insane!' },
     ],
@@ -50,7 +50,7 @@ export const allMovies: Movie[] = [
     rating: 4.2,
     genres: ['Action', 'Comedy', 'Crime'],
     duration: 168,
-    releaseYear: 2023,
+    releaseYear: 2025,
     reviews: [],
     showtimes: [
       { screen: 3, time: '5:30 PM' },
@@ -66,7 +66,7 @@ export const allMovies: Movie[] = [
     rating: 4.6,
     genres: ['Action', 'Drama', 'History'],
     duration: 167,
-    releaseYear: 2022,
+    releaseYear: 2025,
     reviews: [
       { id: 1, author: 'Meena', avatarUrl: 'https://i.pravatar.cc/150?u=meena', rating: 5, comment: 'A visual spectacle! Mani Ratnam is a genius.' },
     ],
@@ -84,7 +84,7 @@ export const allMovies: Movie[] = [
     rating: 4.8,
     genres: ['Action', 'Thriller'],
     duration: 145,
-    releaseYear: 2019,
+    releaseYear: 2025,
     reviews: [],
     showtimes: [
       { screen: 5, time: '4:00 PM' },
@@ -100,7 +100,7 @@ export const allMovies: Movie[] = [
     rating: 4.9,
     genres: ['Drama'],
     duration: 153,
-    releaseYear: 2020,
+    releaseYear: 2025,
     reviews: [
        { id: 1, author: 'Ravi', avatarUrl: 'https://i.pravatar.cc/150?u=ravi', rating: 5, comment: 'Incredibly inspiring and well-acted. Suriya was fantastic.' },
     ],
@@ -118,7 +118,7 @@ export const allMovies: Movie[] = [
     rating: 4.8,
     genres: ['Romance', 'Drama'],
     duration: 158,
-    releaseYear: 2018,
+    releaseYear: 2025,
     reviews: [
       { id: 1, author: 'Janani', avatarUrl: 'https://i.pravatar.cc/150?u=janani', rating: 5, comment: 'A beautiful and heart-touching love story.' },
     ],
@@ -136,7 +136,7 @@ export const allMovies: Movie[] = [
     rating: 4.7,
     genres: ['Action', 'Drama'],
     duration: 141,
-    releaseYear: 2019,
+    releaseYear: 2025,
     reviews: [],
     showtimes: [
       { screen: 2, time: '5:45 PM' },
