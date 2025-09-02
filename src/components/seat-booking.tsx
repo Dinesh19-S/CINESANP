@@ -1,11 +1,10 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { Armchair } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Slider } from '@/components/ui/slider';
 
 const rows = 6;
 const cols = 10;
@@ -22,13 +21,11 @@ const generateBookedSeats = () => {
     }
   }
 
-  // Simple pseudo-random selection to ensure consistency across renders
   for (let i = 0; i < bookedCount; i++) {
     const index = (i * 37 + 13) % seatKeys.length;
     if (!seats.has(seatKeys[index])) {
       seats.add(seatKeys[index]);
     } else {
-        // if we have a collision, just take the next available one
         for (let j = 1; j < seatKeys.length; j++){
             const nextIndex = (index + j) % seatKeys.length
             if (!seats.has(seatKeys[nextIndex])) {
@@ -41,15 +38,17 @@ const generateBookedSeats = () => {
   return seats;
 };
 
-const bookedSeats = generateBookedSeats();
-
-
 const getPriceForSeat = (row: number) => {
   return basePrice + row * priceIncrement;
 };
 
 export default function SeatBooking() {
   const [selectedSeats, setSelectedSeats] = useState<Set<string>>(new Set());
+  const [bookedSeats, setBookedSeats] = useState<Set<string>>(new Set());
+
+  useEffect(() => {
+    setBookedSeats(generateBookedSeats());
+  }, []);
 
   const toggleSeat = (row: number, col: number) => {
     const seatId = `${row}-${col}`;
