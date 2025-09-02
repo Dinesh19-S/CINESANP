@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 
 const rows = 6;
 const cols = 10;
-const pricePerSeat = 12.50;
+const pricePerSeat = 1000;
 
 // Generate some random booked seats for demonstration
 const bookedSeats = new Set<string>();
@@ -93,7 +93,7 @@ export default function SeatBooking() {
             <p className="text-lg">
               <span className="font-bold">{totalSelected}</span> Seats Selected
             </p>
-            <p className="text-2xl font-bold font-headline text-primary">${totalPrice}</p>
+            <p className="text-2xl font-bold font-headline text-primary">₹{totalPrice}</p>
           </div>
           <Button size="lg" disabled={totalSelected === 0} className="w-full sm:w-auto">
             Confirm Booking
