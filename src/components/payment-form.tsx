@@ -75,6 +75,10 @@ export default function PaymentForm() {
     setStatus('success');
   };
 
+  const upiUri = `upi://pay?pa=cinesnap@okhdfcbank&pn=CineSnap&am=${total.toFixed(2)}&cu=INR&tn=MovieBooking`;
+  const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(upiUri)}`;
+
+
   if (status === 'success') {
     return (
       <div className="container mx-auto px-4 py-12 flex flex-col items-center text-center">
@@ -198,13 +202,15 @@ export default function PaymentForm() {
                 </CardHeader>
                 <CardContent className="space-y-4">
                     <div className="flex justify-center p-4 bg-white rounded-lg">
-                      <Image 
-                        src="https://picsum.photos/200/200" 
-                        alt="UPI QR Code"
-                        data-ai-hint="QR code"
-                        width={200}
-                        height={200}
-                      />
+                      {total > 0 && (
+                        <Image 
+                          src={qrCodeUrl}
+                          alt="UPI QR Code"
+                          data-ai-hint="QR code"
+                          width={200}
+                          height={200}
+                        />
+                      )}
                     </div>
                     <div className="flex items-center gap-2">
                        <Separator className="shrink" />
