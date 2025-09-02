@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -13,6 +14,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Loader2, CreditCard, CheckCircle, Ticket, XCircle } from 'lucide-react';
+import { Separator } from './ui/separator';
 
 const paymentSchema = z.object({
   cardNumber: z.string().regex(/^[0-9]{16}$/, 'Must be 16 digits'),

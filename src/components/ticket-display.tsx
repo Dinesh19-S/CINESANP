@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useSearchParams } from 'next/navigation';
@@ -12,13 +13,27 @@ export default function TicketDisplay() {
   const [total, setTotal] = useState<string | null>(null);
 
   useEffect(() => {
-    setSeats(searchParams.get('seats')?.split(',') || []);
-    setTotal(searchParams.get('total'));
+    const seatsParam = searchParams.get('seats');
+    const totalParam = searchParams.get('total');
+    if (seatsParam) {
+      setSeats(seatsParam.split(','));
+    }
+    if (totalParam) {
+      setTotal(totalParam);
+    }
   }, [searchParams]);
 
   // For the purpose of this mock, we'll use a static movie title.
   // In a real app, you'd pass the movie ID and fetch its details.
   const movieTitle = 'Cosmic Odyssey';
+
+  if (seats.length === 0) {
+    return (
+      <div className="container mx-auto px-4 py-12 text-center">
+        <p>Loading ticket details...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="container mx-auto px-4 py-12">
