@@ -21,6 +21,9 @@ export default {
         headline: ['Space Grotesk', 'sans-serif'],
         code: ['monospace'],
       },
+      minHeight: {
+        'screen-minus-header': 'calc(100vh - 65px)',
+      },
       colors: {
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
