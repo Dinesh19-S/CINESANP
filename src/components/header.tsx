@@ -1,14 +1,15 @@
 'use client';
 
 import Link from 'next/link';
-import { Clapperboard, Film, Ticket } from 'lucide-react';
+import { Clapperboard, Film, Ticket as TicketIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 
 const navLinks = [
   { href: '/', label: 'Movies', icon: Film },
-  { href: '/recommendations', label: 'For You', icon: Ticket },
+  { href: '/recommendations', label: 'For You', icon: TicketIcon },
+  { href: '/tickets', label: 'My Tickets', icon: TicketIcon },
 ];
 
 export default function Header() {
@@ -27,16 +28,19 @@ export default function Header() {
               key={href}
               href={href}
               className={cn(
-                'transition-colors hover:text-primary',
+                'transition-colors hover:text-primary flex items-center gap-2',
                 pathname === href ? 'text-primary font-semibold' : 'text-muted-foreground'
               )}
             >
+              <Icon className="w-4 h-4" />
               {label}
             </Link>
           ))}
         </nav>
         <div className="flex flex-1 items-center justify-end gap-4">
-          <Button>Book Now</Button>
+           <Button asChild>
+            <Link href="/#now-showing">Book Now</Link>
+          </Button>
         </div>
       </div>
     </header>

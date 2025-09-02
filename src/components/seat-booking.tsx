@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useMemo, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { Armchair } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Card, CardContent } from '@/components/ui/card';
@@ -38,6 +39,7 @@ const generateBookedSeats = () => {
   return seats;
 };
 
+
 const getPriceForSeat = (row: number) => {
   return basePrice + row * priceIncrement;
 };
@@ -45,8 +47,10 @@ const getPriceForSeat = (row: number) => {
 export default function SeatBooking() {
   const [selectedSeats, setSelectedSeats] = useState<Set<string>>(new Set());
   const [bookedSeats, setBookedSeats] = useState<Set<string>>(new Set());
+  const router = useRouter();
 
   useEffect(() => {
+    // Generate booked seats on the client-side to avoid hydration mismatch
     setBookedSeats(generateBookedSeats());
   }, []);
 
@@ -72,6 +76,13 @@ export default function SeatBooking() {
     }
     return total;
   }, [selectedSeats]);
+
+  const handleBooking = () => {
+    const params = new URLSearchParams();
+    params.set('seats', Array.from(selectedSeats).join(','));
+    params.set('total', totalPrice.toFixed(2));
+    router.push(`/payment?${params.toString()}`);
+  };
 
   const totalSelected = selectedSeats.size;
 
@@ -158,7 +169,7 @@ export default function SeatBooking() {
             </p>
             <p className="text-2xl font-bold font-headline text-primary">₹{totalPrice.toFixed(2)}</p>
           </div>
-          <Button size="lg" disabled={totalSelected === 0} className="w-full sm:w-auto">
+          <Button size="lg" disabled={totalSelected === 0} onClick={handleBooking}>
             Confirm Booking
           </Button>
         </div>
