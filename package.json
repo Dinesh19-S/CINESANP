@@ -5,11 +5,15 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "start:dev": "concurrently \"npm run backend:dev\" \"ng serve\"",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "server": "node server/server.js",
-    "dev": "concurrently \"npm run server\" \"ng serve\""
+    "backend:install": "cd backend && npm install",
+    "backend:dev": "cd backend && npm run dev",
+    "backend:start": "cd backend && npm start",
+    "backend:seed": "cd backend && npm run seed",
+    "postinstall": "npm run backend:install"
   },
   "dependencies": {
     "@angular/animations": "^17.0.0",
@@ -25,12 +29,6 @@
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.0",
-    "express": "^4.18.2",
-    "mongoose": "^8.0.0",
-    "cors": "^2.8.5",
-    "body-parser": "^1.20.2",
-    "bcryptjs": "^2.4.3",
-    "jsonwebtoken": "^9.0.2",
     "firebase": "^10.12.3",
     "@angular/fire": "^17.0.0",
     "dotenv": "^16.5.0"
@@ -48,6 +46,7 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "typescript": "~5.2.0",
-    "concurrently": "^8.2.0"
+    "concurrently": "^8.2.0",
+    "nodemon": "^3.0.0"
   }
 }

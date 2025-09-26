@@ -2,8 +2,11 @@ const mongoose = require('mongoose');
 
 const bookingSchema = new mongoose.Schema({
   userId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
+    type: String,
+    required: true
+  },
+  userEmail: {
+    type: String,
     required: true
   },
   movieId: {
@@ -23,6 +26,10 @@ const bookingSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  showDate: {
+    type: Date,
+    required: true
+  },
   seats: [{
     type: String,
     required: true
@@ -39,9 +46,19 @@ const bookingSchema = new mongoose.Schema({
     type: String,
     enum: ['confirmed', 'cancelled'],
     default: 'confirmed'
+  },
+  paymentStatus: {
+    type: String,
+    enum: ['pending', 'completed', 'failed'],
+    default: 'completed'
   }
 }, {
   timestamps: true
 });
+
+// Indexes for better query performance
+bookingSchema.index({ userId: 1, bookingDate: -1 });
+bookingSchema.index({ movieId: 1 });
+bookingSchema.index({ showDate: 1, screen: 1, seats: 1 });
 
 module.exports = mongoose.model('Booking', bookingSchema);

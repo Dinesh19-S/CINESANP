@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Observable } from 'rxjs';
-import firebase from 'firebase/compat/app';
+import { AuthService, User } from '../../services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -10,19 +9,19 @@ import firebase from 'firebase/compat/app';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  user$: Observable<firebase.User | null>;
+  user$: Observable<User | null>;
 
   constructor(
     private router: Router,
-    private afAuth: AngularFireAuth
+    private authService: AuthService
   ) {
-    this.user$ = this.afAuth.authState;
+    this.user$ = this.authService.currentUser$;
   }
 
   ngOnInit(): void {}
 
   async logout(): Promise<void> {
-    await this.afAuth.signOut();
+    await this.authService.signOut();
     this.router.navigate(['/']);
   }
 

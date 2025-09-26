@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { BookingService } from '../../services/booking.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-payment',
@@ -12,10 +14,13 @@ export class PaymentComponent implements OnInit {
   time = '';
   seats: string[] = [];
   total = 0;
+  processing = false;
   
   constructor(
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private bookingService: BookingService,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -29,18 +34,36 @@ export class PaymentComponent implements OnInit {
   }
 
   async processPayment(): Promise<void> {
-    // Simulate payment processing
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    this.processing = true;
     
-    // Navigate to tickets page with booking details
-    const queryParams = {
-      movie: this.movie,
-      screen: this.screen,
-      time: this.time,
-      seats: this.seats.join(','),
-      total: this.total.toFixed(2)
-    };
-    
-    this.router.navigate(['/tickets'], { queryParams });
+    try {
+      // Create booking
+      const booking = await this.bookingService.createBooking({
+        movieId: 'temp-id', // This should come from the movie selection
+        movieTitle: this.movie,
+        screen: parseInt(this.screen),
+        showtime: this.time,
+        seats: this.seats,
+        totalAmount: this.total
+      }).toPromise();
+      
+      this.snackBar.open('Booking confirmed!', 'Close', { duration: 3000 });
+      
+      // Navigate to tickets page with booking details
+      const queryParams = {
+        movie: this.movie,
+        screen: this.screen,
+        time: this.time,
+        seats: this.seats.join(','),
+        total: this.total.toFixed(2),
+        bookingId: booking?.id
+      };
+      
+      this.router.navigate(['/tickets'], { queryParams });
+    } catch (error: any) {
+      this.snackBar.open('Payment failed. Please try again.', 'Close', { duration: 5000 });
+    } finally {
+      this.processing = false;
+    }
   }
 }

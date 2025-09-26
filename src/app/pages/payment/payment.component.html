@@ -39,8 +39,10 @@
                   </div>
 
                   <button mat-raised-button color="primary" class="full-width pay-button" (click)="processPayment()">
-                    <mat-icon>credit_card</mat-icon>
-                    Pay ₹{{ total.toFixed(2) }}
+                    <mat-spinner *ngIf="processing" diameter="20"></mat-spinner>
+                    <mat-icon *ngIf="!processing">credit_card</mat-icon>
+                    <span *ngIf="!processing">Pay ₹{{ total.toFixed(2) }}</span>
+                    <span *ngIf="processing">Processing...</span>
                   </button>
                 </div>
               </mat-tab>
@@ -62,7 +64,9 @@
                   </mat-form-field>
 
                   <button mat-raised-button color="primary" class="full-width pay-button" (click)="processPayment()">
-                    Pay ₹{{ total.toFixed(2) }}
+                    <mat-spinner *ngIf="processing" diameter="20"></mat-spinner>
+                    <span *ngIf="!processing">Pay ₹{{ total.toFixed(2) }}</span>
+                    <span *ngIf="processing">Processing...</span>
                   </button>
                 </div>
               </mat-tab>

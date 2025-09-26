@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import firebase from 'firebase/compat/app';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +17,7 @@ export class LoginComponent {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private afAuth: AngularFireAuth,
+    private authService: AuthService,
     private snackBar: MatSnackBar
   ) {
     this.loginForm = this.fb.group({
@@ -33,7 +32,7 @@ export class LoginComponent {
       const { email, password } = this.loginForm.value;
 
       try {
-        await this.afAuth.signInWithEmailAndPassword(email, password);
+        await this.authService.signInWithEmailAndPassword(email, password);
         this.snackBar.open('Login successful!', 'Close', { duration: 3000 });
         this.router.navigate(['/']);
       } catch (error: any) {
@@ -47,8 +46,7 @@ export class LoginComponent {
   async loginWithGoogle(): Promise<void> {
     this.loading = true;
     try {
-      const provider = new firebase.auth.GoogleAuthProvider();
-      await this.afAuth.signInWithPopup(provider);
+      await this.authService.signInWithGoogle();
       this.snackBar.open('Login successful!', 'Close', { duration: 3000 });
       this.router.navigate(['/']);
     } catch (error: any) {

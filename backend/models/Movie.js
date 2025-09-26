@@ -5,6 +5,10 @@ const reviewSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  authorId: {
+    type: String,
+    required: true
+  },
   avatarUrl: {
     type: String,
     default: ''
@@ -32,6 +36,10 @@ const showtimeSchema = new mongoose.Schema({
   },
   time: {
     type: String,
+    required: true
+  },
+  date: {
+    type: Date,
     required: true
   }
 });
@@ -72,9 +80,18 @@ const movieSchema = new mongoose.Schema({
     required: true
   },
   reviews: [reviewSchema],
-  showtimes: [showtimeSchema]
+  showtimes: [showtimeSchema],
+  isActive: {
+    type: Boolean,
+    default: true
+  }
 }, {
   timestamps: true
 });
+
+// Index for better query performance
+movieSchema.index({ title: 'text', description: 'text' });
+movieSchema.index({ genres: 1 });
+movieSchema.index({ releaseYear: -1 });
 
 module.exports = mongoose.model('Movie', movieSchema);

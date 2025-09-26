@@ -71,7 +71,8 @@
               "browserTarget": "cinesnap:build:production"
             },
             "development": {
-              "browserTarget": "cinesnap:build:development"
+              "browserTarget": "cinesnap:build:development",
+              "proxyConfig": "proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"

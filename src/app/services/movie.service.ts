@@ -1,14 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { Movie } from '../models/movie.model';
-import { environment } from '../../environments/environment';
+import { ApiService } from './api.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MovieService {
-  private apiUrl = environment.apiUrl;
 
   // Mock data for now - replace with actual API calls
   private mockMovies: Movie[] = [
@@ -55,19 +53,23 @@ export class MovieService {
     // Add more movies as needed
   ];
 
-  constructor(private http: HttpClient) {}
+  constructor(private apiService: ApiService) {}
 
   getMovies(): Observable<Movie[]> {
-    // For now, return mock data. Replace with actual API call:
-    // return this.http.get<Movie[]>(`${this.apiUrl}/movies`);
+    // Replace with actual API call when backend is ready:
+    // return this.apiService.get<Movie[]>('/movies');
     return of(this.mockMovies);
   }
 
   getMovieById(id: string): Observable<Movie | undefined> {
-    // For now, return mock data. Replace with actual API call:
-    // return this.http.get<Movie>(`${this.apiUrl}/movies/${id}`);
+    // Replace with actual API call when backend is ready:
+    // return this.apiService.get<Movie>(`/movies/${id}`);
     const movie = this.mockMovies.find(m => m.id === id);
     return of(movie);
+  }
+
+  addReview(movieId: string, review: any): Observable<Movie> {
+    return this.apiService.post<Movie>(`/movies/${movieId}/reviews`, review);
   }
 
   getAllGenres(): string[] {

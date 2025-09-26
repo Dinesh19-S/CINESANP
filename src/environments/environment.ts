@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:3000/api',
+  apiUrl: '/api',
   firebase: {
     projectId: "cinesnap-xyfx9",
     appId: "1:729955019536:web:0307712579b0592da3d395",
