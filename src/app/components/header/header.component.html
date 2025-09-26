@@ -1,0 +1,46 @@
+<mat-toolbar class="header-toolbar">
+  <div class="container header-content">
+    <div class="logo" routerLink="/">
+      <mat-icon>movie</mat-icon>
+      <span class="headline-font logo-text">CineSnap</span>
+    </div>
+    
+    <nav class="nav-links">
+      <a mat-button routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+        <mat-icon>local_movies</mat-icon>
+        Movies
+      </a>
+      <a mat-button routerLink="/recommendations" routerLinkActive="active">
+        <mat-icon>recommend</mat-icon>
+        For You
+      </a>
+      <a mat-button routerLink="/tickets" routerLinkActive="active">
+        <mat-icon>confirmation_number</mat-icon>
+        My Tickets
+      </a>
+    </nav>
+
+    <div class="user-section">
+      <ng-container *ngIf="user$ | async as user; else loginButton">
+        <button mat-icon-button [matMenuTriggerFor]="userMenu">
+          <mat-icon>account_circle</mat-icon>
+        </button>
+        <mat-menu #userMenu="matMenu">
+          <div class="user-info">
+            <p>{{ user.displayName || user.email }}</p>
+          </div>
+          <mat-divider></mat-divider>
+          <button mat-menu-item (click)="logout()">
+            <mat-icon>logout</mat-icon>
+            Logout
+          </button>
+        </mat-menu>
+      </ng-container>
+      <ng-template #loginButton>
+        <button mat-raised-button color="primary" (click)="navigateToLogin()">
+          Login
+        </button>
+      </ng-template>
+    </div>
+  </div>
+</mat-toolbar>

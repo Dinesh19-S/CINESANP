@@ -1,0 +1,105 @@
+<div class="movie-detail-container" *ngIf="!loading && movie">
+  <div class="container">
+    <div class="movie-detail-grid">
+      <!-- Movie Poster -->
+      <div class="poster-section">
+        <mat-card class="poster-card">
+          <img [src]="movie.posterUrl" [alt]="movie.title" class="poster-image">
+        </mat-card>
+      </div>
+
+      <!-- Movie Information -->
+      <div class="info-section">
+        <div class="movie-header">
+          <h1 class="headline-font movie-title">{{ movie.title }}</h1>
+          <div class="movie-meta">
+            <div class="meta-item">
+              <mat-icon>calendar_today</mat-icon>
+              <span>{{ movie.releaseYear }}</span>
+            </div>
+            <div class="meta-item">
+              <mat-icon>schedule</mat-icon>
+              <span>{{ movie.duration }} min</span>
+            </div>
+            <app-star-rating [rating]="movie.rating" [showLabel]="true"></app-star-rating>
+          </div>
+          <div class="genres">
+            <mat-chip-listbox>
+              <mat-chip *ngFor="let genre of movie.genres">{{ genre }}</mat-chip>
+            </mat-chip-listbox>
+          </div>
+          <p class="movie-description">{{ movie.description }}</p>
+        </div>
+
+        <!-- Booking Section -->
+        <mat-card class="booking-section">
+          <mat-card-header>
+            <mat-card-title>
+              <mat-icon>confirmation_number</mat-icon>
+              Book Your Seats
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <h3>Select a Showtime</h3>
+            <div class="showtimes">
+              <button 
+                *ngFor="let showtime of movie.showtimes"
+                mat-stroked-button
+                [color]="selectedShowtime === showtime ? 'primary' : ''"
+                [class.selected]="selectedShowtime === showtime"
+                (click)="selectShowtime(showtime)"
+                class="showtime-button">
+                <div class="showtime-info">
+                  <span class="time">{{ showtime.time }}</span>
+                  <span class="screen">Screen {{ showtime.screen }}</span>
+                </div>
+              </button>
+            </div>
+
+            <div *ngIf="selectedShowtime" class="seat-selection">
+              <mat-divider></mat-divider>
+              <p class="selection-info">
+                Booking for Screen {{ selectedShowtime.screen }} at {{ selectedShowtime.time }}
+              </p>
+              <app-seat-booking (confirm)="onBookingConfirm($event)"></app-seat-booking>
+            </div>
+          </mat-card-content>
+        </mat-card>
+
+        <!-- Reviews Section -->
+        <mat-card class="reviews-section">
+          <mat-card-header>
+            <mat-card-title>
+              <mat-icon>rate_review</mat-icon>
+              Reviews
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div *ngIf="movie.reviews.length > 0; else noReviews" class="reviews-list">
+              <div *ngFor="let review of movie.reviews" class="review-item">
+                <div class="review-header">
+                  <div class="reviewer-info">
+                    <img [src]="review.avatarUrl" [alt]="review.author" class="reviewer-avatar">
+                    <span class="reviewer-name">{{ review.author }}</span>
+                  </div>
+                  <app-star-rating [rating]="review.rating" [showLabel]="false"></app-star-rating>
+                </div>
+                <p class="review-comment">{{ review.comment }}</p>
+              </div>
+            </div>
+            <ng-template #noReviews>
+              <div class="no-reviews">
+                <mat-icon>message</mat-icon>
+                <p>No reviews yet. Be the first to share your thoughts!</p>
+              </div>
+            </ng-template>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="loading" class="loading-container">
+  <mat-spinner></mat-spinner>
+</div>

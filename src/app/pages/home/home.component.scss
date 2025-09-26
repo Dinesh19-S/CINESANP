@@ -1,0 +1,159 @@
+.home-container {
+  min-height: 100vh;
+}
+
+.hero-section {
+  position: relative;
+  height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+  border-radius: 0.75rem;
+  margin: 1rem;
+}
+
+.hero-background {
+  position: absolute;
+  inset: 0;
+  
+  .hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.2;
+  }
+  
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, #1a202c, rgba(26, 32, 44, 0.8), transparent);
+  }
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 800px;
+  padding: 0 2rem;
+  
+  .hero-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.25rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 2rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}
+
+.movies-section {
+  padding: 4rem 0;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+  
+  .section-title {
+    font-size: 2rem;
+    font-weight: 700;
+  }
+  
+  .filters {
+    display: flex;
+    gap: 1rem;
+    
+    .search-field {
+      width: 250px;
+    }
+    
+    .genre-select {
+      width: 180px;
+    }
+  }
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  padding: 4rem 0;
+}
+
+.movies-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.no-results {
+  text-align: center;
+  padding: 4rem 2rem;
+  
+  .no-results-content {
+    mat-icon {
+      font-size: 4rem;
+      width: 4rem;
+      height: 4rem;
+      color: rgba(255, 255, 255, 0.5);
+      margin-bottom: 1rem;
+    }
+    
+    h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    p {
+      color: rgba(255, 255, 255, 0.7);
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.5rem !important;
+  }
+  
+  .hero-subtitle {
+    font-size: 1rem !important;
+  }
+  
+  .section-header {
+    flex-direction: column;
+    align-items: stretch;
+    
+    .filters {
+      flex-direction: column;
+      
+      .search-field,
+      .genre-select {
+        width: 100%;
+      }
+    }
+  }
+  
+  .movies-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+}

@@ -1,0 +1,73 @@
+<div class="tickets-container">
+  <div class="container">
+    <div class="ticket-display">
+      <mat-card class="ticket-card">
+        <mat-card-header class="ticket-header">
+          <div class="brand-section">
+            <mat-icon class="brand-icon">movie</mat-icon>
+            <span class="headline-font brand-name">CineSnap</span>
+          </div>
+          <mat-card-title class="movie-title headline-font">{{ movie }}</mat-card-title>
+          <mat-card-subtitle>Your E-Ticket</mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content class="ticket-content">
+          <div class="ticket-details">
+            <div class="detail-item">
+              <div class="detail-label">
+                <mat-icon>calendar_today</mat-icon>
+                <span>Date</span>
+              </div>
+              <div class="detail-value">July 28, 2024</div>
+            </div>
+
+            <div class="detail-item">
+              <div class="detail-label">
+                <mat-icon>schedule</mat-icon>
+                <span>Time</span>
+              </div>
+              <div class="detail-value">{{ time }}</div>
+            </div>
+
+            <div class="detail-item full-width">
+              <div class="detail-label">
+                <mat-icon>event_seat</mat-icon>
+                <span>Seats</span>
+              </div>
+              <div class="seats-display">
+                <mat-chip-listbox>
+                  <mat-chip *ngFor="let seat of seats" class="seat-chip">{{ seat }}</mat-chip>
+                </mat-chip-listbox>
+              </div>
+            </div>
+
+            <div class="detail-item">
+              <div class="detail-label">
+                <span>Screen</span>
+              </div>
+              <div class="detail-value">{{ screen }}</div>
+            </div>
+
+            <div class="detail-item">
+              <div class="detail-label">
+                <span>Total Paid</span>
+              </div>
+              <div class="detail-value total-amount headline-font">₹{{ total }}</div>
+            </div>
+          </div>
+        </mat-card-content>
+
+        <mat-card-actions class="ticket-footer">
+          <div class="ticket-divider">
+            <mat-icon class="ticket-icon">confirmation_number</mat-icon>
+          </div>
+          <div class="barcode-section">
+            <div class="barcode-placeholder">
+              <span>SCAN ME</span>
+            </div>
+          </div>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</div>

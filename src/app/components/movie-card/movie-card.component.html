@@ -1,0 +1,12 @@
+<mat-card class="movie-card" (click)="navigateToMovie()">
+  <div class="movie-poster">
+    <img [src]="movie.posterUrl" [alt]="movie.title" class="poster-image">
+  </div>
+  <mat-card-content class="movie-info">
+    <h3 class="movie-title headline-font">{{ movie.title }}</h3>
+    <div class="movie-meta">
+      <span class="release-year">{{ movie.releaseYear }}</span>
+      <app-star-rating [rating]="movie.rating"></app-star-rating>
+    </div>
+  </mat-card-content>
+</mat-card>

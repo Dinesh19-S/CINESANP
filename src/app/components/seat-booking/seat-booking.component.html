@@ -1,0 +1,65 @@
+<div class="seat-booking-container">
+  <div class="screen-indicator">
+    <div class="screen-line"></div>
+    <div class="screen-label">SCREEN</div>
+  </div>
+
+  <div class="price-gradient">
+    <span class="price-label">₹{{ basePrice }}</span>
+    <div class="gradient-bar"></div>
+    <span class="price-label">₹{{ basePrice + priceIncrement * (rows - 1) }}</span>
+  </div>
+
+  <div class="seats-grid">
+    <div *ngFor="let row of getSeatRows()" class="seat-row">
+      <div *ngFor="let col of getSeatCols()" 
+           class="seat-container"
+           [class.aisle-gap]="col === 2 || col === 7">
+        <button 
+          mat-icon-button 
+          [class]="getSeatClass(row, col)"
+          [disabled]="isSeatBooked(row, col)"
+          (click)="toggleSeat(row, col)">
+          <mat-icon>event_seat</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="legend">
+    <div class="legend-item">
+      <mat-icon class="seat cheap">event_seat</mat-icon>
+      <span>₹200-₹399</span>
+    </div>
+    <div class="legend-item">
+      <mat-icon class="seat medium">event_seat</mat-icon>
+      <span>₹400-₹599</span>
+    </div>
+    <div class="legend-item">
+      <mat-icon class="seat expensive">event_seat</mat-icon>
+      <span>₹600-₹800</span>
+    </div>
+    <div class="legend-item">
+      <mat-icon class="seat selected">event_seat</mat-icon>
+      <span>Selected</span>
+    </div>
+    <div class="legend-item">
+      <mat-icon class="seat booked">event_seat</mat-icon>
+      <span>Booked</span>
+    </div>
+  </div>
+
+  <div class="booking-summary">
+    <div class="summary-info">
+      <p><strong>{{ selectedSeats.size }}</strong> Seats Selected</p>
+      <p class="total-price headline-font">₹{{ getTotalPrice().toFixed(2) }}</p>
+    </div>
+    <button 
+      mat-raised-button 
+      color="primary" 
+      [disabled]="selectedSeats.size === 0"
+      (click)="onConfirmBooking()">
+      Confirm Booking
+    </button>
+  </div>
+</div>

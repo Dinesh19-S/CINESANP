@@ -1,0 +1,73 @@
+<div class="home-container">
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-background">
+      <img src="https://picsum.photos/1200/800" alt="Cinema background" class="hero-image">
+      <div class="hero-overlay"></div>
+    </div>
+    <div class="hero-content">
+      <h1 class="headline-font hero-title fade-in">Your Next Favorite Movie Awaits.</h1>
+      <p class="hero-subtitle fade-in">
+        Discover films you'll love with personalized recommendations, browse current listings, and more.
+      </p>
+      <div class="hero-actions fade-in">
+        <button mat-raised-button class="btn-accent" routerLink="/recommendations">
+          <mat-icon>recommend</mat-icon>
+          Get Recommendations
+        </button>
+        <button mat-raised-button color="primary">
+          <mat-icon>local_movies</mat-icon>
+          Browse Movies
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Movies Section -->
+  <section class="movies-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="headline-font section-title">Now Showing</h2>
+        <div class="filters">
+          <mat-form-field appearance="outline" class="search-field">
+            <mat-label>Search movies...</mat-label>
+            <input matInput [(ngModel)]="searchTerm" (input)="onSearchChange()">
+            <mat-icon matPrefix>search</mat-icon>
+          </mat-form-field>
+          
+          <mat-form-field appearance="outline" class="genre-select">
+            <mat-label>Genre</mat-label>
+            <mat-select [(value)]="selectedGenre" (selectionChange)="onGenreChange()">
+              <mat-option value="all">All Genres</mat-option>
+              <mat-option *ngFor="let genre of genres" [value]="genre">
+                {{ genre }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div *ngIf="loading" class="loading-container">
+        <mat-spinner></mat-spinner>
+      </div>
+
+      <div *ngIf="!loading && filteredMovies.length > 0" class="movies-grid">
+        <app-movie-card 
+          *ngFor="let movie of filteredMovies; trackBy: trackByMovieId" 
+          [movie]="movie"
+          class="fade-in">
+        </app-movie-card>
+      </div>
+
+      <mat-card *ngIf="!loading && filteredMovies.length === 0" class="no-results">
+        <mat-card-content>
+          <div class="no-results-content">
+            <mat-icon>movie_filter</mat-icon>
+            <h3>No movies found</h3>
+            <p>Try adjusting your search or filters.</p>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </section>
+</div>

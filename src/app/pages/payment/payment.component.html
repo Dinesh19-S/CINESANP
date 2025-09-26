@@ -1,0 +1,101 @@
+<div class="payment-container">
+  <div class="container">
+    <div class="payment-header">
+      <h1 class="headline-font page-title">Complete Your Booking</h1>
+      <p class="page-subtitle">Confirm your details and complete the payment.</p>
+    </div>
+
+    <div class="payment-grid">
+      <!-- Payment Form -->
+      <div class="payment-form-section">
+        <mat-card class="payment-card">
+          <mat-card-header>
+            <mat-card-title>Payment Details</mat-card-title>
+            <mat-card-subtitle>Enter your payment information</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <mat-tab-group>
+              <mat-tab label="Credit/Debit Card">
+                <div class="tab-content">
+                  <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Name on Card</mat-label>
+                    <input matInput placeholder="John Doe">
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Card Number</mat-label>
+                    <input matInput placeholder="0000 0000 0000 0000">
+                  </mat-form-field>
+
+                  <div class="card-details">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Expiry</mat-label>
+                      <input matInput placeholder="MM/YY">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                      <mat-label>CVV</mat-label>
+                      <input matInput placeholder="123">
+                    </mat-form-field>
+                  </div>
+
+                  <button mat-raised-button color="primary" class="full-width pay-button" (click)="processPayment()">
+                    <mat-icon>credit_card</mat-icon>
+                    Pay ₹{{ total.toFixed(2) }}
+                  </button>
+                </div>
+              </mat-tab>
+              
+              <mat-tab label="UPI">
+                <div class="tab-content">
+                  <div class="qr-section">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi://pay?pa=cinesnap@bank&pn=CineSnap&am={{ total }}&cu=INR" 
+                         alt="UPI QR Code" class="qr-code">
+                  </div>
+                  
+                  <div class="divider">
+                    <span>OR</span>
+                  </div>
+
+                  <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>UPI ID</mat-label>
+                    <input matInput placeholder="yourname@bank">
+                  </mat-form-field>
+
+                  <button mat-raised-button color="primary" class="full-width pay-button" (click)="processPayment()">
+                    Pay ₹{{ total.toFixed(2) }}
+                  </button>
+                </div>
+              </mat-tab>
+            </mat-tab-group>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+      <!-- Booking Summary -->
+      <div class="summary-section">
+        <mat-card class="summary-card">
+          <mat-card-header>
+            <mat-card-title>Booking Summary</mat-card-title>
+            <mat-card-subtitle>{{ movie }} - Screen {{ screen }} at {{ time }}</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="summary-details">
+              <h4>Selected Seats:</h4>
+              <div class="seats-display">
+                <mat-chip-listbox>
+                  <mat-chip *ngFor="let seat of seats">{{ seat }}</mat-chip>
+                </mat-chip-listbox>
+              </div>
+            </div>
+          </mat-card-content>
+          <mat-card-actions>
+            <div class="total-section">
+              <span class="total-label">Total:</span>
+              <span class="total-amount headline-font">₹{{ total.toFixed(2) }}</span>
+            </div>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

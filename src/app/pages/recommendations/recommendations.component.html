@@ -1,0 +1,76 @@
+<div class="recommendations-container">
+  <div class="container">
+    <div class="header-section">
+      <mat-icon class="header-icon">recommend</mat-icon>
+      <h1 class="headline-font page-title">Personalized Movie Recommendations</h1>
+      <p class="page-subtitle">
+        Describe your movie tastes, and our AI will curate a list of films just for you. 
+        Mention genres, actors, directors, or even just the mood you're in.
+      </p>
+    </div>
+
+    <mat-card class="recommendation-form">
+      <mat-card-content>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Describe your movie preferences...</mat-label>
+          <textarea 
+            matInput 
+            [(ngModel)]="preferences"
+            rows="6"
+            placeholder="e.g., I love mind-bending sci-fi movies like Inception and The Matrix. I'm also a fan of director Denis Villeneuve and enjoy films with great cinematography..."
+            (input)="clearResults()">
+          </textarea>
+        </mat-form-field>
+
+        <div class="form-actions">
+          <button 
+            mat-raised-button 
+            color="primary" 
+            (click)="getRecommendations()"
+            [disabled]="loading || !preferences.trim()"
+            class="recommend-button">
+            <mat-spinner *ngIf="loading" diameter="20"></mat-spinner>
+            <mat-icon *ngIf="!loading">lightbulb</mat-icon>
+            <span *ngIf="!loading">Get Recommendations</span>
+          </button>
+        </div>
+
+        <div *ngIf="error" class="error-message">
+          <mat-icon>error</mat-icon>
+          <span>{{ error }}</span>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Results Section -->
+    <div *ngIf="recommendations.length > 0" class="results-section fade-in">
+      <mat-card class="recommendations-card">
+        <mat-card-header>
+          <mat-card-title>
+            <mat-icon>local_movies</mat-icon>
+            Here are your recommendations:
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <ul class="recommendations-list">
+            <li *ngFor="let recommendation of recommendations" class="recommendation-item">
+              {{ recommendation }}
+            </li>
+          </ul>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="reasoning-card">
+        <mat-card-header>
+          <mat-card-title>
+            <mat-icon>psychology</mat-icon>
+            Why you'll like them:
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p class="reasoning-text">{{ reasoning }}</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,66 @@
+.login-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 128px);
+  padding: 2rem;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 400px;
+  background-color: #2d3748;
+}
+
+.login-header {
+  text-align: center;
+  margin-bottom: 1rem;
+  
+  .brand-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    color: #805ad5;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.login-button {
+  height: 48px;
+  margin-bottom: 1rem;
+}
+
+.divider {
+  position: relative;
+  text-align: center;
+  margin: 1.5rem 0;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  
+  span {
+    background-color: #2d3748;
+    padding: 0 1rem;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.875rem;
+  }
+}
+
+.google-button {
+  height: 48px;
+}

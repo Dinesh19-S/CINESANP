@@ -1,0 +1,104 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/theming';
+
+// Include the common styles for Angular Material
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+$cinesnap-primary: mat-palette($mat-deep-purple, 400);
+$cinesnap-accent: mat-palette($mat-light-green, A200, A100, A400);
+$cinesnap-warn: mat-palette($mat-red);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$cinesnap-theme: mat-dark-theme((
+  color: (
+    primary: $cinesnap-primary,
+    accent: $cinesnap-accent,
+    warn: $cinesnap-warn,
+  )
+));
+
+// Include theme styles for core and each component used in your app.
+@include angular-material-theme($cinesnap-theme);
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', 'Roboto', sans-serif;
+  background-color: #1a202c;
+  color: #f7fafc;
+  line-height: 1.6;
+}
+
+.headline-font {
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.btn-primary {
+  background-color: #805ad5;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #6b46c1;
+}
+
+.btn-accent {
+  background-color: #90ee90;
+  color: #1a202c;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.btn-accent:hover {
+  background-color: #7dd87d;
+}
+
+.card {
+  background-color: #2d3748;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(128, 90, 213, 0.2);
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

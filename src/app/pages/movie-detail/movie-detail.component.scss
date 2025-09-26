@@ -1,0 +1,198 @@
+.movie-detail-container {
+  padding: 2rem 0;
+}
+
+.movie-detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+.poster-section {
+  .poster-card {
+    overflow: hidden;
+    background-color: #2d3748;
+    
+    .poster-image {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 2/3;
+      object-fit: cover;
+    }
+  }
+}
+
+.info-section {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.movie-header {
+  .movie-title {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+  
+  .movie-meta {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: rgba(255, 255, 255, 0.7);
+    }
+  }
+  
+  .genres {
+    margin-bottom: 1.5rem;
+  }
+  
+  .movie-description {
+    font-size: 1.125rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.8);
+  }
+}
+
+.booking-section,
+.reviews-section {
+  background-color: rgba(45, 55, 72, 0.5);
+  
+  mat-card-header {
+    mat-card-title {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #805ad5;
+    }
+  }
+}
+
+.showtimes {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+  
+  .showtime-button {
+    padding: 1rem;
+    height: auto;
+    
+    &.selected {
+      background-color: rgba(128, 90, 213, 0.2);
+    }
+    
+    .showtime-info {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      
+      .time {
+        font-size: 1.125rem;
+        font-weight: 700;
+      }
+      
+      .screen {
+        font-size: 0.75rem;
+        color: rgba(255, 255, 255, 0.7);
+      }
+    }
+  }
+}
+
+.seat-selection {
+  margin-top: 1rem;
+  
+  .selection-info {
+    text-align: center;
+    color: #805ad5;
+    font-weight: 600;
+    margin: 1rem 0;
+  }
+}
+
+.reviews-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  
+  .review-item {
+    .review-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+      
+      .reviewer-info {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        
+        .reviewer-avatar {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          object-fit: cover;
+        }
+        
+        .reviewer-name {
+          font-weight: 600;
+        }
+      }
+    }
+    
+    .review-comment {
+      color: rgba(255, 255, 255, 0.8);
+      margin: 0;
+    }
+  }
+}
+
+.no-reviews {
+  text-align: center;
+  padding: 2rem;
+  color: rgba(255, 255, 255, 0.7);
+  
+  mat-icon {
+    font-size: 3rem;
+    width: 3rem;
+    height: 3rem;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+  }
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 50vh;
+}
+
+@media (max-width: 768px) {
+  .movie-detail-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .movie-title {
+    font-size: 2rem !important;
+  }
+  
+  .movie-meta {
+    gap: 1rem !important;
+  }
+  
+  .showtimes {
+    justify-content: center;
+  }
+}

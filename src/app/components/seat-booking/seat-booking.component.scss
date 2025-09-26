@@ -1,0 +1,171 @@
+.seat-booking-container {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.screen-indicator {
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  
+  .screen-line {
+    height: 4px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 2px;
+    margin-bottom: 0.5rem;
+  }
+  
+  .screen-label {
+    background-color: rgba(255, 255, 255, 0.5);
+    color: #1a202c;
+    padding: 0.25rem 1rem;
+    border-radius: 0 0 0.5rem 0.5rem;
+    font-size: 0.75rem;
+    font-weight: bold;
+    display: inline-block;
+  }
+}
+
+.price-gradient {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  max-width: 400px;
+  
+  .price-label {
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.7);
+    white-space: nowrap;
+  }
+  
+  .gradient-bar {
+    flex: 1;
+    height: 8px;
+    background: linear-gradient(to right, #10b981, #f59e0b, #ef4444);
+    border-radius: 4px;
+  }
+}
+
+.seats-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.seat-row {
+  display: flex;
+  gap: 0.25rem;
+  justify-content: center;
+}
+
+.seat-container {
+  &.aisle-gap {
+    margin-right: 1rem;
+  }
+}
+
+.seat {
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  transition: all 0.2s ease;
+  
+  &.cheap {
+    color: #10b981;
+    
+    &:hover:not(:disabled) {
+      color: #059669;
+    }
+  }
+  
+  &.medium {
+    color: #f59e0b;
+    
+    &:hover:not(:disabled) {
+      color: #d97706;
+    }
+  }
+  
+  &.expensive {
+    color: #ef4444;
+    
+    &:hover:not(:disabled) {
+      color: #dc2626;
+    }
+  }
+  
+  &.selected {
+    color: #90ee90;
+    background-color: rgba(144, 238, 144, 0.2);
+  }
+  
+  &.booked {
+    color: rgba(255, 255, 255, 0.3);
+    cursor: not-allowed;
+  }
+}
+
+.legend {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.7);
+    
+    .seat {
+      width: 20px;
+      height: 20px;
+      min-width: 20px;
+    }
+  }
+}
+
+.booking-summary {
+  width: 100%;
+  max-width: 400px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  padding-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  
+  .summary-info {
+    .total-price {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #805ad5;
+      margin: 0;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .seat-booking-container {
+    padding: 1rem;
+  }
+  
+  .legend {
+    gap: 1rem;
+    
+    .legend-item {
+      font-size: 0.75rem;
+    }
+  }
+  
+  .booking-summary {
+    flex-direction: column;
+    text-align: center;
+  }
+}

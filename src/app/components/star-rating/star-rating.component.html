@@ -1,0 +1,11 @@
+<div class="star-rating">
+  <div class="stars">
+    <mat-icon 
+      *ngFor="let star of stars" 
+      [class]="'star-icon ' + getStarType(star)"
+      class="star-icon">
+      {{ getStarType(star) }}
+    </mat-icon>
+  </div>
+  <span *ngIf="showLabel" class="rating-label">{{ rating.toFixed(1) }}</span>
+</div>
